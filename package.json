@@ -1,0 +1,20 @@
+{
+  "name": "latineats",
+  "version": "1.0.0",
+  "description": "LatinEats official Website",
+  "homepage": "https://github.com/neolink3891/latineats-website#readme",
+  "bugs": {
+    "url": "https://github.com/neolink3891/latineats-website/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neolink3891/latineats-website.git"
+  },
+  "license": "ISC",
+  "author": "NeoLink",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
