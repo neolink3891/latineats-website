@@ -44,7 +44,7 @@
     }
 
     .tagline {
-      font-size: 18px;
+      font-size: 22px;
       color: #e03030;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -75,7 +75,7 @@
       color: rgba(255,255,255,0.3);
       cursor: pointer;
       border-bottom: 2px solid transparent;
-      transition: all 0.3s;
+      transition: color 0.3s, border-color 0.3s;
       text-align: center;
     }
 
@@ -91,16 +91,32 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
+    /* PANEL TRANSITION — fade + slide up */
     .category-panel {
-      display: none;
+      display: flex;
       flex-direction: column;
       height: 100%;
+      position: absolute;
+      inset: 24px 48px;
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .category-panel.active {
-      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .category-panel.leaving {
+      opacity: 0;
+      transform: translateY(-14px);
+      pointer-events: none;
     }
 
     .cat-title {
@@ -122,6 +138,7 @@
       flex: 1;
     }
 
+    /* CARD ENTRANCE ANIMATION */
     .item {
       background: rgba(255,255,255,0.03);
       border: 0.5px solid rgba(255,255,255,0.07);
@@ -129,23 +146,48 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+      animation: cardIn 0.45s ease forwards;
     }
+
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* stagger each card */
+    .item:nth-child(1) { animation-delay: 0.05s; }
+    .item:nth-child(2) { animation-delay: 0.10s; }
+    .item:nth-child(3) { animation-delay: 0.15s; }
+    .item:nth-child(4) { animation-delay: 0.20s; }
+    .item:nth-child(5) { animation-delay: 0.25s; }
+    .item:nth-child(6) { animation-delay: 0.30s; }
 
     .item:hover {
-      border-color: rgba(200,169,110,0.3);
+      border-color: rgba(200,169,110,0.4);
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
 
-    /* FOOD IMAGE — takes all remaining space after body */
+    /* FOOD IMAGE */
     .item-img {
-      width: 72%;
+      width: 100%;
       flex: 1;
       object-fit: cover;
       display: block;
       min-height: 0;
+      transition: transform 0.5s ease;
     }
 
-    /* BODY — shrinks to fit content exactly, no extra gap */
+    .item:hover .item-img {
+      transform: scale(1.04);
+    }
+
+    /* BODY */
     .item-body {
       display: flex;
       flex-direction: column;
@@ -239,7 +281,7 @@
   <div class="header">
     <div class="header-left">
       <img class="logo-img" src="../assets/img/logo/logo_small.png" alt="LatinEats logo">
-      <div class="tagline">Authentic Latin American Food</div>
+      <div class="tagline"> - Authentic Latin American Food</div>
     </div>
     <div class="clock" id="clock"></div>
   </div>
@@ -260,12 +302,12 @@ const menu = [
   {
     cat: "Pupusas",
     items: [
-      { name: "Frijol con Queso (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans.", price: "£5.50", tag: "", img: "" },
-      { name: "Revueltas (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans and pork mix.", price: "£5.50", tag: "veg", img: "" },
+      { name: "Frijol con Queso (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans.", price: "£5.50", tag: "veg", img: "" },
+      { name: "Revueltas (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans and pork mix.", price: "£5.50", tag: "", img: "" },
       { name: "Zukini (2x)", desc: "Corn flour made with mozzarella cheese and zukini mashup.", price: "£5.50", tag: "veg", img: "" },
-      { name: "Pupusa sampler (x2)", desc: "Salvadoran stuffed corn cakes with curtido slaw", price: "£7.00", tag: "", img: "" },
-      { name: "Ceviche tostadas", desc: "Citrus-cured fish on crispy tostada with avocado", price: "£8.00", tag: "", img: "" },
-      { name: "Chorizo al vino", desc: "Sliced chorizo sautéed in red wine & herbs", price: "£6.00", tag: "spicy", img: "" },
+      { name: "Queso (x2)", desc: "Corn flour made with mozzarella cheese.", price: "£5.50", tag: "veg", img: "" },
+      { name: "Queso con Ajo", desc: "Corn flour made with mozzarella cheese and garlic.", price: "£5.50", tag: "veg", img: "" },
+      { name: "Queso con Jalapeño", desc: "Corn flour made with mozzarella cheese and jalapeños.", price: "£6.00", tag: "spicy", img: "" },
     ]
   },
   {
@@ -372,8 +414,31 @@ const DURATION = 8000;
 let start = null;
 
 function showCat(i) {
-  document.querySelectorAll('.cat-tab').forEach((t, j) => t.classList.toggle('active', j === i));
-  document.querySelectorAll('.category-panel').forEach((p, j) => p.classList.toggle('active', j === i));
+  const panels = document.querySelectorAll('.category-panel');
+  const tabs = document.querySelectorAll('.cat-tab');
+
+  // Fade out current
+  const outgoing = panels[current];
+  outgoing.classList.add('leaving');
+  outgoing.classList.remove('active');
+
+  // Clean up leaving class after transition
+  outgoing.addEventListener('transitionend', () => {
+    outgoing.classList.remove('leaving');
+  }, { once: true });
+
+  // Trigger card re-animation on incoming panel
+  const incoming = panels[i];
+  incoming.querySelectorAll('.item').forEach((card, idx) => {
+    card.style.animation = 'none';
+    card.offsetHeight; // reflow
+    card.style.animation = '';
+    card.style.animationDelay = (0.05 + idx * 0.05) + 's';
+  });
+
+  incoming.classList.add('active');
+  tabs.forEach((t, j) => t.classList.toggle('active', j === i));
+
   current = i;
   start = performance.now();
 }
@@ -398,7 +463,7 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-showCat(0);
+start = performance.now();
 requestAnimationFrame(tick);
 </script>
 </body>
