@@ -7,11 +7,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      height: 100%;
-      background: #0a0a0a;
-      overflow: hidden;
-    }
+    html, body { height: 100%; background: #0a0a0a; overflow: hidden; }
 
     .menu-wrap {
       display: flex;
@@ -27,32 +23,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 48px;
+      padding: 12px 48px;
       border-bottom: 0.5px solid rgba(255,255,255,0.1);
       flex-shrink: 0;
     }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .logo-img {
-      height: 56px;
-      width: auto;
-    }
-
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .logo-img { height: 48px; width: auto; }
     .tagline {
-      font-size: 22px;
+      font-size: 18px;
       color: #e03030;
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 500;
     }
-
     .clock {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 300;
       color: #f5a623;
       letter-spacing: 3px;
@@ -63,22 +48,18 @@
       display: flex;
       justify-content: center;
       border-bottom: 0.5px solid rgba(255,255,255,0.08);
-      padding: 0 48px;
       flex-shrink: 0;
     }
-
     .cat-tab {
-      padding: 14px 28px;
-      font-size: 20px;
+      padding: 10px 24px;
+      font-size: 16px;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: rgba(255,255,255,0.3);
       cursor: pointer;
       border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      text-align: center;
+      transition: color 0.3s, border-color 0.3s;
     }
-
     .cat-tab.active {
       color: #c8a96e;
       border-bottom: 2px solid #c8a96e;
@@ -87,58 +68,54 @@
     /* CONTENT AREA */
     .content {
       flex: 1;
-      padding: 24px 48px;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
       position: relative;
     }
 
-    /* PANEL TRANSITION — fade + slide up */
+    /* PANEL — absolutely fills content area */
     .category-panel {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      position: absolute;
-      inset: 24px 48px;
+      padding: 12px 32px;
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(16px);
       pointer-events: none;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
     .category-panel.active {
       opacity: 1;
       transform: translateY(0);
       pointer-events: all;
     }
-
     .category-panel.leaving {
       opacity: 0;
-      transform: translateY(-14px);
+      transform: translateY(-12px);
       pointer-events: none;
     }
 
     .cat-title {
-      font-size: 22px;
+      font-size: 13px;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: #bf642a;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       flex-shrink: 0;
       text-align: center;
     }
 
-    /* GRID: 2 rows x 3 cols filling remaining height */
+    /* GRID */
     .items-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      gap: 14px;
+      gap: 10px;
       flex: 1;
+      min-height: 0;
     }
 
-    /* CARD ENTRANCE ANIMATION */
+    /* CARD */
     .item {
       background: rgba(255,255,255,0.03);
       border: 0.5px solid rgba(255,255,255,0.07);
@@ -146,128 +123,100 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 0;
       opacity: 0;
-      transform: translateY(20px) scale(0.97);
-      animation: cardIn 0.45s ease forwards;
+      transform: translateY(16px) scale(0.97);
+      animation: cardIn 0.4s ease forwards;
+      transition: border-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     @keyframes cardIn {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
-
-    /* stagger each card */
     .item:nth-child(1) { animation-delay: 0.05s; }
     .item:nth-child(2) { animation-delay: 0.10s; }
     .item:nth-child(3) { animation-delay: 0.15s; }
     .item:nth-child(4) { animation-delay: 0.20s; }
     .item:nth-child(5) { animation-delay: 0.25s; }
     .item:nth-child(6) { animation-delay: 0.30s; }
-
     .item:hover {
       border-color: rgba(200,169,110,0.4);
       transform: translateY(-2px) scale(1.01);
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
 
-    /* FOOD IMAGE */
+    /* IMAGE — grows to fill available space */
     .item-img {
-      width: 64%;
+      width: 100%;
       flex: 1;
+      min-height: 0;
       object-fit: cover;
       display: block;
-      min-height: 0;
-      transition: transform 2s ease;
+      transition: transform 0.5s ease;
     }
+    .item:hover .item-img { transform: scale(1.04); }
 
-    .item:hover .item-img {
-      transform: scale(1.04);
-    }
-
-    /* BODY */
+    /* BODY — fixed height, never grows */
     .item-body {
+      flex-shrink: 0;
+      padding: 8px 14px 10px;
+      text-align: center;
       display: flex;
       flex-direction: column;
-      flex-shrink: 0;
-      padding: 10px 18px 12px;
-      text-align: center;
-      gap: 6px;
+      gap: 4px;
     }
-
-    .item-top { display: flex; flex-direction: column; gap: 4px; }
+    .item-top { display: flex; flex-direction: column; gap: 2px; }
 
     .item-name {
-      font-size: 36px;
+      font-size: 20px;
       font-weight: 800;
       color: #e03030;
-      text-shadow: 0 0 18px rgba(245,166,35,0.7), 0 1px 1px rgba(245,100,0,0.5);
+      text-shadow: 0 0 14px rgba(245,166,35,0.6), 0 1px 2px rgba(200,80,0,0.5);
       line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-
     .item-desc {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.4;
+      font-size: 11px;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-
     .item-footer {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
+      margin-top: 2px;
     }
-
     .item-price {
-      font-size: 46px;
+      font-size: 26px;
       font-weight: 800;
       color: #c8a96e;
       line-height: 1;
     }
-
     .item-tag {
-      font-size: 16px;
-      padding: 3px 10px;
+      font-size: 12px;
+      padding: 2px 9px;
       border-radius: 20px;
       background: rgba(200,169,110,0.1);
       color: #c8a96e;
       border: 0.5px solid rgba(200,169,110,0.25);
-      letter-spacing: 0.5px;
     }
-
-    .item-tag.spicy {
-      background: rgba(200,80,60,0.1);
-      color: #e07060;
-      border-color: rgba(200,80,60,0.25);
-    }
-
-    .item-tag.veg {
-      background: rgba(80,160,80,0.1);
-      color: #70c070;
-      border-color: rgba(80,160,80,0.25);
-    }
+    .item-tag.spicy { background: rgba(200,80,60,0.1); color: #e07060; border-color: rgba(200,80,60,0.25); }
+    .item-tag.veg   { background: rgba(80,160,80,0.1);  color: #70c070; border-color: rgba(80,160,80,0.25); }
 
     /* PROGRESS BAR */
-    .progress-bar {
-      height: 4px;
-      background: rgba(255,255,255,0.05);
-      flex-shrink: 0;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #c8a96e;
-      width: 0%;
-      transition: width 0.2s linear;
-    }
+    .progress-bar { height: 3px; background: rgba(255,255,255,0.05); flex-shrink: 0; }
+    .progress-fill { height: 100%; background: #c8a96e; width: 0%; transition: width 0.1s linear; }
 
     /* FOOTER */
     .footer {
-      padding: 6px 48px;
-      font-size: 11px;
-      color: rgba(255,255,255,0.15);
+      padding: 4px 48px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.12);
       letter-spacing: 1px;
       text-align: right;
       flex-shrink: 0;
@@ -275,26 +224,22 @@
   </style>
 </head>
 <body>
-
 <div class="menu-wrap">
 
   <div class="header">
     <div class="header-left">
       <img class="logo-img" src="../assets/img/logo/logo_small.png" alt="LatinEats logo">
-      <div class="tagline"> - Authentic Latin American Food</div>
+      <div class="tagline">Authentic Latin American Food</div>
     </div>
     <div class="clock" id="clock"></div>
   </div>
 
   <div class="category-nav" id="cat-nav"></div>
-
   <div class="content" id="content"></div>
-
   <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
   <div class="footer">latineats.co.uk</div>
 
 </div>
-
 <script>
 const DEFAULT_IMG = '../assets/img/banner/pupusas.png';
 
@@ -302,8 +247,8 @@ const menu = [
   {
     cat: "Pupusas",
     items: [
-      { name: "Frijol con Queso (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans.", price: "£5.50", tag: "veg", img: "" },
-      { name: "Revueltas (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans and pork mix.", price: "£5.50", tag: "", img: "" },
+      { name: "Frijol con Queso (2x)", desc: "Corn flour made with mozzarella cheese and red kidney beans.", price: "£5.50", tag: "", img: "" },
+      { name: "Revueltas (2x)", desc: "Corn flour made with mozzarella cheese, red kidney beans and pork mix.", price: "£5.50", tag: "", img: "" },
       { name: "Zukini (2x)", desc: "Corn flour made with mozzarella cheese and zukini mashup.", price: "£5.50", tag: "veg", img: "" },
       { name: "Queso (x2)", desc: "Corn flour made with mozzarella cheese.", price: "£5.50", tag: "veg", img: "" },
       { name: "Queso con Ajo", desc: "Corn flour made with mozzarella cheese and garlic.", price: "£5.50", tag: "veg", img: "" },
@@ -417,28 +362,21 @@ function showCat(i) {
   const panels = document.querySelectorAll('.category-panel');
   const tabs = document.querySelectorAll('.cat-tab');
 
-  // Fade out current
   const outgoing = panels[current];
   outgoing.classList.add('leaving');
   outgoing.classList.remove('active');
+  outgoing.addEventListener('transitionend', () => outgoing.classList.remove('leaving'), { once: true });
 
-  // Clean up leaving class after transition
-  outgoing.addEventListener('transitionend', () => {
-    outgoing.classList.remove('leaving');
-  }, { once: true });
-
-  // Trigger card re-animation on incoming panel
   const incoming = panels[i];
   incoming.querySelectorAll('.item').forEach((card, idx) => {
     card.style.animation = 'none';
-    card.offsetHeight; // reflow
+    card.offsetHeight;
     card.style.animation = '';
     card.style.animationDelay = (0.05 + idx * 0.05) + 's';
   });
 
   incoming.classList.add('active');
   tabs.forEach((t, j) => t.classList.toggle('active', j === i));
-
   current = i;
   start = performance.now();
 }
@@ -446,15 +384,12 @@ function showCat(i) {
 function tick(ts) {
   if (!start) start = ts;
   const elapsed = ts - start;
-  const pct = Math.min((elapsed / DURATION) * 100, 100);
-  progress.style.width = pct + '%';
+  progress.style.width = Math.min((elapsed / DURATION) * 100, 100) + '%';
   if (elapsed >= DURATION) showCat((current + 1) % menu.length);
   requestAnimationFrame(tick);
 }
 
-document.querySelectorAll('.cat-tab').forEach((t, i) => {
-  t.addEventListener('click', () => showCat(i));
-});
+document.querySelectorAll('.cat-tab').forEach((t, i) => t.addEventListener('click', () => showCat(i)));
 
 function updateClock() {
   document.getElementById('clock').textContent =
@@ -462,7 +397,6 @@ function updateClock() {
 }
 updateClock();
 setInterval(updateClock, 1000);
-
 start = performance.now();
 requestAnimationFrame(tick);
 </script>
