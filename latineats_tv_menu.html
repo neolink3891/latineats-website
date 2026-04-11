@@ -1,0 +1,181 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0a0a; }
+  .menu-wrap { background: #0f0f0f; color: #f5f0e8; font-family: var(--font-sans); min-height: 100vh; padding: 0; overflow: hidden; }
+  .header { display: flex; align-items: center; justify-content: space-between; padding: 28px 48px 20px; border-bottom: 0.5px solid rgba(255,255,255,0.1); }
+  .logo { font-size: 32px; font-weight: 500; letter-spacing: 2px; color: #f5f0e8; }
+  .logo span { color: #c8a96e; }
+  .tagline { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+  .clock { font-size: 15px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+  .category-nav { display: flex; gap: 0; border-bottom: 0.5px solid rgba(255,255,255,0.08); padding: 0 48px; }
+  .cat-tab { padding: 14px 24px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.3s; }
+  .cat-tab.active { color: #c8a96e; border-bottom: 2px solid #c8a96e; }
+  .content { padding: 36px 48px; }
+  .category-panel { display: none; }
+  .category-panel.active { display: block; }
+  .cat-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c8a96e; margin-bottom: 28px; }
+  .items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .item { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.3s; }
+  .item:hover { border-color: rgba(200,169,110,0.3); }
+  .item-name { font-size: 16px; font-weight: 500; color: #f5f0e8; }
+  .item-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+  .item-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+  .item-price { font-size: 18px; font-weight: 500; color: #c8a96e; }
+  .item-tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: rgba(200,169,110,0.1); color: #c8a96e; border: 0.5px solid rgba(200,169,110,0.25); letter-spacing: 0.5px; }
+  .item-tag.spicy { background: rgba(200,80,60,0.1); color: #e07060; border-color: rgba(200,80,60,0.25); }
+  .item-tag.veg { background: rgba(80,160,80,0.1); color: #70c070; border-color: rgba(80,160,80,0.25); }
+  .progress-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 3px; background: rgba(255,255,255,0.05); }
+  .progress-fill { height: 100%; background: #c8a96e; width: 0%; transition: width 0.1s linear; }
+  .footer { position: fixed; bottom: 8px; right: 48px; font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+</style>
+
+<div class="menu-wrap">
+  <div class="header">
+    <div>
+      <div class="logo">Latin<span>Eats</span></div>
+      <div class="tagline">Authentic Latin American Kitchen</div>
+    </div>
+    <div class="clock" id="clock"></div>
+  </div>
+
+  <div class="category-nav" id="cat-nav"></div>
+
+  <div class="content" id="content"></div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div class="footer">latineats.co.uk</div>
+</div>
+
+<script>
+const menu = [
+  {
+    cat: "Starters",
+    items: [
+      { name: "Empanadas (x3)", desc: "Crispy pastry filled with spiced beef, olive & egg", price: "£6.50", tag: "" },
+      { name: "Guacamole & chips", desc: "Freshly made avocado, lime, coriander & jalapeño", price: "£5.50", tag: "veg" },
+      { name: "Elote callejero", desc: "Mexican street corn with cotija, chilli & lime mayo", price: "£5.00", tag: "veg" },
+      { name: "Pupusa sampler (x2)", desc: "Salvadoran stuffed corn cakes with curtido slaw", price: "£7.00", tag: "" },
+      { name: "Ceviche tostadas", desc: "Citrus-cured fish on crispy tostada with avocado", price: "£8.00", tag: "" },
+      { name: "Chorizo al vino", desc: "Sliced chorizo sautéed in red wine & herbs", price: "£6.00", tag: "spicy" },
+    ]
+  },
+  {
+    cat: "Tacos",
+    items: [
+      { name: "Taco al pastor", desc: "Marinated pork, pineapple, onion & coriander", price: "£4.00", tag: "spicy" },
+      { name: "Taco de carnitas", desc: "Slow-cooked pulled pork, salsa verde & lime", price: "£4.00", tag: "" },
+      { name: "Taco de pollo", desc: "Grilled chicken, chipotle crema & pickled onion", price: "£4.00", tag: "" },
+      { name: "Taco de camarones", desc: "Sautéed prawns, mango salsa & avocado crema", price: "£5.00", tag: "" },
+      { name: "Taco de hongos", desc: "Portobello mushroom, black beans & salsa roja", price: "£3.50", tag: "veg" },
+      { name: "Taco de birria", desc: "Braised beef, consommé dipping sauce & oaxaca cheese", price: "£5.50", tag: "spicy" },
+    ]
+  },
+  {
+    cat: "Mains",
+    items: [
+      { name: "Bandeja paisa", desc: "Red beans, rice, chicharrón, egg, chorizo & avocado", price: "£14.50", tag: "" },
+      { name: "Pupusas revueltas", desc: "Three Salvadoran corn cakes with pork & cheese, curtido & tomato salsa", price: "£11.00", tag: "" },
+      { name: "Pollo a la plancha", desc: "Grilled chicken breast, chimichurri, rice & salad", price: "£12.50", tag: "" },
+      { name: "Carne asada", desc: "Grilled marinated flank steak, fries & chimichurri", price: "£15.00", tag: "spicy" },
+      { name: "Enchiladas verdes", desc: "Chicken-filled tortillas, tomatillo sauce & crema", price: "£12.00", tag: "" },
+      { name: "Cazuela de mariscos", desc: "Seafood stew with prawns, mussels & coconut broth", price: "£16.00", tag: "" },
+    ]
+  },
+  {
+    cat: "Sides",
+    items: [
+      { name: "Arroz con cilantro", desc: "Fragrant coriander rice with lime", price: "£3.00", tag: "veg" },
+      { name: "Frijoles negros", desc: "Slow-cooked black beans with epazote", price: "£3.00", tag: "veg" },
+      { name: "Patacones", desc: "Twice-fried plantain with aji dipping sauce", price: "£3.50", tag: "veg" },
+      { name: "Yuca frita", desc: "Crispy fried cassava with garlic & herbs", price: "£3.50", tag: "veg" },
+      { name: "Ensalada fresca", desc: "Tomato, cucumber, red onion & coriander", price: "£3.00", tag: "veg" },
+      { name: "Pico de gallo", desc: "Fresh tomato salsa with jalapeño & lime", price: "£2.50", tag: "veg" },
+    ]
+  },
+  {
+    cat: "Drinks",
+    items: [
+      { name: "Horchata", desc: "Traditional rice milk with cinnamon & vanilla", price: "£3.50", tag: "veg" },
+      { name: "Agua de jamaica", desc: "Hibiscus flower iced water, lightly sweetened", price: "£3.00", tag: "veg" },
+      { name: "Limonada de coco", desc: "Colombian coconut lemonade, blended & creamy", price: "£4.00", tag: "veg" },
+      { name: "Michelada", desc: "Mexican beer cocktail, lime, hot sauce & chilli rim", price: "£5.50", tag: "spicy" },
+      { name: "Agua fresca", desc: "Daily fresh fruit water — ask for today's flavour", price: "£3.00", tag: "veg" },
+      { name: "Soft drinks", desc: "Coke, Diet Coke, Sprite, still & sparkling water", price: "£2.50", tag: "" },
+    ]
+  },
+  {
+    cat: "Desserts",
+    items: [
+      { name: "Tres leches", desc: "Sponge cake soaked in three milks, whipped cream", price: "£5.50", tag: "" },
+      { name: "Churros con chocolate", desc: "Fried dough sticks with dark chocolate dipping sauce", price: "£5.00", tag: "" },
+      { name: "Flan de caramelo", desc: "Classic caramel custard, smooth & silky", price: "£5.00", tag: "veg" },
+      { name: "Arroz con leche", desc: "Creamy rice pudding with cinnamon & raisins", price: "£4.50", tag: "veg" },
+    ]
+  }
+];
+
+const nav = document.getElementById('cat-nav');
+const content = document.getElementById('content');
+const progress = document.getElementById('progress');
+
+menu.forEach((cat, i) => {
+  const tab = document.createElement('div');
+  tab.className = 'cat-tab' + (i === 0 ? ' active' : '');
+  tab.textContent = cat.cat;
+  tab.dataset.i = i;
+  nav.appendChild(tab);
+
+  const panel = document.createElement('div');
+  panel.className = 'category-panel' + (i === 0 ? ' active' : '');
+  panel.id = 'panel-' + i;
+  panel.innerHTML = `<div class="cat-title">${cat.cat}</div><div class="items-grid">${
+    cat.items.map(item => `
+      <div class="item">
+        <div class="item-name">${item.name}</div>
+        <div class="item-desc">${item.desc}</div>
+        <div class="item-footer">
+          <div class="item-price">${item.price}</div>
+          ${item.tag ? `<div class="item-tag ${item.tag}">${item.tag === 'spicy' ? 'spicy' : item.tag === 'veg' ? 'veggie' : item.tag}</div>` : ''}
+        </div>
+      </div>`).join('')
+  }</div>`;
+  content.appendChild(panel);
+});
+
+let current = 0;
+const DURATION = 8000;
+let start = null;
+
+function showCat(i) {
+  document.querySelectorAll('.cat-tab').forEach((t,j) => t.classList.toggle('active', j===i));
+  document.querySelectorAll('.category-panel').forEach((p,j) => p.classList.toggle('active', j===i));
+  current = i;
+  start = performance.now();
+}
+
+function tick(ts) {
+  if (!start) start = ts;
+  const elapsed = ts - start;
+  const pct = Math.min((elapsed / DURATION) * 100, 100);
+  progress.style.width = pct + '%';
+  if (elapsed >= DURATION) {
+    showCat((current + 1) % menu.length);
+  }
+  requestAnimationFrame(tick);
+}
+
+document.querySelectorAll('.cat-tab').forEach((t,i) => {
+  t.addEventListener('click', () => showCat(i));
+});
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+showCat(0);
+requestAnimationFrame(tick);
+</script>
