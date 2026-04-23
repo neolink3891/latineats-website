@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Latin Eats">
+    <meta name="description" content="Follow Latin Eats on social media">
+    <title>Latin Eats - Follow Us</title>
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        /* ===== SOCIAL PAGE CUSTOM STYLES ===== */
+
+        /* Page Hero */
+        .social-hero {
+            position: relative;
+            padding: 160px 0 100px;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+
+        .social-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 60% 50% at 20% 50%, rgba(200, 40, 40, 0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 80% 30%, rgba(255, 120, 0, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .social-hero .breadcrumb-text {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-hero .breadcrumb-text .sub-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--theme-color, #c82828);
+            margin-bottom: 18px;
+        }
+
+        .social-hero .breadcrumb-text h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .social-hero .breadcrumb-text p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.55);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 28px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .breadcrumb-nav a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-nav a:hover {
+            color: var(--theme-color, #c82828);
+        }
+
+        .breadcrumb-nav .separator {
+            color: var(--theme-color, #c82828);
+        }
+
+        .breadcrumb-nav .current {
+            color: #fff;
+        }
+
+        /* Floating shapes */
+        .social-hero .hero-shape {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .social-hero .hero-shape-1 {
+            top: 15%;
+            left: 5%;
+            width: 80px;
+            opacity: 0.15;
+            animation: floatBobX 4s ease-in-out infinite;
+        }
+
+        .social-hero .hero-shape-2 {
+            top: 20%;
+            right: 8%;
+            width: 60px;
+            opacity: 0.1;
+            animation: floatBobY 5s ease-in-out infinite;
+        }
+
+        @keyframes floatBobX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(12px); }
+        }
+
+        @keyframes floatBobY {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+
+        /* ===== SOCIAL CARDS SECTION ===== */
+        .social-section {
+            background: #111;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200,40,40,0.4), transparent);
+        }
+
+        /* Cards grid */
+        .social-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .social-cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Individual social card */
+        .social-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.15);
+            text-decoration: none;
+        }
+
+        /* Card glow on hover */
+        .social-card.facebook:hover {
+            box-shadow: 0 30px 60px rgba(24, 119, 242, 0.25);
+        }
+
+        .social-card.instagram:hover {
+            box-shadow: 0 30px 60px rgba(225, 48, 108, 0.25);
+        }
+
+        .social-card.tiktok:hover {
+            box-shadow: 0 30px 60px rgba(105, 201, 208, 0.25);
+        }
+
+        /* Card header band */
+        .social-card-header {
+            position: relative;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .social-card.facebook .social-card-header {
+            background: linear-gradient(135deg, #0f2b5e 0%, #1877f2 100%);
+        }
+
+        .social-card.instagram .social-card-header {
+            background: linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040, #f77737, #fcaf45, #ffdc80);
+            background-size: 200% 200%;
+            animation: instagramGrad 6s ease infinite;
+        }
+
+        @keyframes instagramGrad {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .social-card.tiktok .social-card-header {
+            background: linear-gradient(135deg, #010101 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        /* Card header pattern overlay */
+        .social-card-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255,255,255,0.03) 0px,
+                rgba(255,255,255,0.03) 1px,
+                transparent 1px,
+                transparent 20px
+            );
+        }
+
+        /* Platform icon in header */
+        .social-platform-icon {
+            font-size: 3rem;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+            transition: transform 0.3s ease;
+        }
+
+        .social-card:hover .social-platform-icon {
+            transform: scale(1.15);
+        }
+
+        /* TikTok dual-color icon effect */
+        .tiktok-icon-wrap {
+            position: relative;
+            font-size: 3rem;
+            z-index: 1;
+        }
+
+        .tiktok-icon-wrap .fa-tiktok {
+            color: #fff;
+            filter: drop-shadow(-3px 2px 0 #69c9d0) drop-shadow(3px -2px 0 #ee1d52);
+            transition: transform 0.3s ease;
+        }
+
+        .social-card:hover .tiktok-icon-wrap .fa-tiktok {
+            transform: scale(1.15);
+        }
+
+        /* Card body */
+        .social-card-body {
+            padding: 28px 28px 22px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-platform-name {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .social-card.facebook .social-platform-name { color: #1877f2; }
+        .social-card.instagram .social-platform-name { color: #e1306c; }
+        .social-card.tiktok .social-platform-name { color: #69c9d0; }
+
+        .social-handle {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .social-description {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.65;
+            flex: 1;
+            margin-bottom: 24px;
+        }
+
+        /* Card CTA button */
+        .social-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 22px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+
+        .social-card.facebook .social-card-cta {
+            background: rgba(24, 119, 242, 0.12);
+            color: #1877f2;
+            border: 1px solid rgba(24, 119, 242, 0.3);
+        }
+
+        .social-card.facebook .social-card-cta:hover {
+            background: #1877f2;
+            color: #fff;
+            border-color: #1877f2;
+        }
+
+        .social-card.instagram .social-card-cta {
+            background: rgba(225, 48, 108, 0.12);
+            color: #e1306c;
+            border: 1px solid rgba(225, 48, 108, 0.3);
+        }
+
+        .social-card.instagram .social-card-cta:hover {
+            background: linear-gradient(135deg, #833ab4, #e1306c, #fcaf45);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .social-card.tiktok .social-card-cta {
+            background: rgba(105, 201, 208, 0.1);
+            color: #69c9d0;
+            border: 1px solid rgba(105, 201, 208, 0.25);
+        }
+
+        .social-card.tiktok .social-card-cta:hover {
+            background: #69c9d0;
+            color: #010101;
+            border-color: #69c9d0;
+        }
+
+        .social-card-cta i {
+            font-size: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-card-cta:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ===== STATS BANNER ===== */
+        .social-stats-banner {
+            background: #0d0d0d;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 50px 0;
+        }
+
+        .stats-inner {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-number span {
+            color: var(--theme-color, #c82828);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ===== FOLLOW BANNER ===== */
+        .follow-banner {
+            background: linear-gradient(135deg, #1a0505 0%, #2a0808 50%, #1a0505 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .follow-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(200,40,40,0.03) 0px,
+                rgba(200,40,40,0.03) 1px,
+                transparent 1px,
+                transparent 30px
+            );
+        }
+
+        .follow-banner h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .follow-banner p {
+            color: rgba(255,255,255,0.55);
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin: 0 auto 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .follow-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .follow-icon-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
+        .follow-icon-btn.fb { background: rgba(24, 119, 242, 0.2); }
+        .follow-icon-btn.ig { background: rgba(225, 48, 108, 0.2); }
+        .follow-icon-btn.tt { background: rgba(105, 201, 208, 0.15); }
+
+        .follow-icon-btn.fb:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(24,119,242,0.4);
+        }
+
+        .follow-icon-btn.ig:hover {
+            background: linear-gradient(135deg, #833ab4, #e1306c);
+            border-color: transparent;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(225,48,108,0.4);
+        }
+
+        .follow-icon-btn.tt:hover {
+            background: #69c9d0;
+            border-color: #69c9d0;
+            color: #010101;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(105,201,208,0.4);
+        }
+
+        /* Marquee override */
+        .marquee-wrapper.style-1 .text-slider.text-style {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .stats-inner { gap: 30px; }
+            .social-card-body { padding: 22px 20px 18px; }
+        }
+    </style>
+</head>
+
+<body class="dark-mood">
+
+    <!-- Preloader Start -->
+    <div id="preloader" class="preloader">
+        <div class="animation-preloader">
+            <div class="spinner"></div>
+            <div class="txt-loading">
+                <span data-text-preloader="L" class="letters-loading">L</span>
+                <span data-text-preloader="A" class="letters-loading">A</span>
+                <span data-text-preloader="T" class="letters-loading">T</span>
+                <span data-text-preloader="I" class="letters-loading">I</span>
+                <span data-text-preloader="N" class="letters-loading">N</span>
+                <span data-text-preloader="E" class="letters-loading">E</span>
+                <span data-text-preloader="A" class="letters-loading">A</span>
+                <span data-text-preloader="T" class="letters-loading">T</span>
+                <span data-text-preloader="S" class="letters-loading">S</span>
+            </div>
+            <p class="text-center">Loading</p>
+        </div>
+        <div class="loader">
+            <div class="row">
+                <div class="col-3 loader-section section-left"><div class="bg"></div></div>
+                <div class="col-3 loader-section section-left"><div class="bg"></div></div>
+                <div class="col-3 loader-section section-right"><div class="bg"></div></div>
+                <div class="col-3 loader-section section-right"><div class="bg"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mouse-cursor cursor-outer"></div>
+    <div class="mouse-cursor cursor-inner"></div>
+
+    <button id="back-top" class="back-to-top">
+        <i class="fa-regular fa-arrow-up"></i>
+    </button>
+
+    <!-- Offcanvas Area -->
+    <div class="fix-area">
+        <div class="offcanvas__info">
+            <div class="offcanvas__wrapper">
+                <div class="offcanvas__content">
+                    <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+                        <div class="offcanvas__logo">
+                            <a href="index.html">
+                                <img src="assets/img/logo/logo.svg" alt="logo-img">
+                            </a>
+                        </div>
+                        <div class="offcanvas__close">
+                            <button><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="mobile-menu fix mb-3"></div>
+                    <div class="offcanvas__contact">
+                        <h4>Contact Info</h4>
+                        <ul>
+                            <li class="d-flex align-items-center">
+                                <div class="offcanvas__contact-icon"><i class="fal fa-map-marker-alt"></i></div>
+                                <div class="offcanvas__contact-text"><a target="_blank" href="#">100 Duke Street, St Helens, WA9 3LB</a></div>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <div class="offcanvas__contact-icon mr-15"><i class="fal fa-clock"></i></div>
+                                <div class="offcanvas__contact-text"><a target="_blank" href="#">Mon–Fri, 09am – 05pm</a></div>
+                            </li>
+                        </ul>
+                        <div class="social-icon d-flex align-items-center mt-4">
+                            <a href="https://www.facebook.com/profile.php?id=61569219511236" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/latineats_sthelens" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@latin.eats" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas__overlay"></div>
+
+    <!-- Header -->
+    <header class="header-section-2">
+        <div class="black-bg"></div>
+        <div class="red-bg"></div>
+        <div class="container-fluid">
+            <div class="main-header-wrapper-2">
+                <div class="logo-image">
+                    <a href="index.html">
+                        <img src="assets/img/logo/logo_small.png" alt="img">
+                    </a>
+                </div>
+                <div class="main-header-items">
+                    <div class="header-top-wrapper-2">
+                        <div class="text-white top-text">Welcome To <span class="text-theme-color2">Latin Eats</span> The real latin taste.</div>
+                        <div class="text-white top-text"><i class="fa-solid fa-location-dot me-3"></i> 100 Duke Street, St Helens, WA9 3LB</div>
+                        <div class="social-icon d-flex align-items-center">
+                            <div class="text-white pe-2 top-text"><i class="fa-solid fa-user me-3"></i> Login / Register</div>
+                            <span class="text-white top-text">Follow Us:</span>
+                            <a href="https://www.facebook.com/profile.php?id=61569219511236" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/latineats_sthelens" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@latin.eats" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div id="header-sticky" class="header-2">
+                        <div class="mega-menu-wrapper">
+                            <div class="header-main">
+                                <div class="logo">
+                                    <a href="index.html" class="header-logo">
+                                        <img src="assets/img/logo/logo_small.png" alt="logo-img">
+                                    </a>
+                                </div>
+                                <div class="header-left">
+                                    <div class="mean__menu-wrapper">
+                                        <div class="main-menu">
+                                            <nav id="mobile-menu">
+                                                <ul>
+                                                    <li class="has-dropdown menu-thumb">
+                                                        <a href="index.html">Home <i class="fa-regular fa-plus"></i></a>
+                                                    </li>
+                                                    <li class="has-dropdown">
+                                                        <a href="about.html">About us <i class="fa-regular fa-plus"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop.html">Menu <i class="fa-regular fa-plus"></i></a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a href="social.html">Social Media <i class="fa-regular fa-plus"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="contact.html">Contact Us <i class="fa-regular fa-plus"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header-right d-flex justify-content-end align-items-center">
+                                    <a href="#0" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
+                                    <a class="theme-btn" href="menu.html">ORDER NOW <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                                    <div class="header__hamburger d-xl-block my-auto">
+                                        <div class="sidebar__toggle">
+                                            <i class="fas fa-bars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Area -->
+    <div class="search-wrap">
+        <div class="search-inner">
+            <i class="fas fa-times search-close" id="search-close"></i>
+            <div class="search-cell">
+                <form method="get">
+                    <div class="search-field-holder">
+                        <input type="search" class="main-search-input" placeholder="Search...">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="social-hero">
+        <!-- Floating decorative shapes (reuse theme images) -->
+        <img class="hero-shape hero-shape-1" src="assets/img/shape/bannerShape2_1.svg" alt="">
+        <img class="hero-shape hero-shape-2" src="assets/img/shape/bannerShape2_2.svg" alt="">
+
+        <div class="container">
+            <div class="breadcrumb-text wow fadeInUp" data-wow-delay="0.2s">
+                <div class="sub-title">
+                    <img src="assets/img/icon/titleIcon.svg" alt="icon">
+                    Stay Connected
+                    <img src="assets/img/icon/titleIcon.svg" alt="icon">
+                </div>
+                <h1>Follow Latin Eats</h1>
+                <p>Stay up to date with our latest dishes, offers, and behind-the-scenes moments from St Helens' favourite Latin kitchen.</p>
+                <div class="breadcrumb-nav">
+                    <a href="index.html">Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></span>
+                    <span class="current">Social Media</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS BANNER ===== -->
+    <div class="social-stats-banner">
+        <div class="container">
+            <div class="stats-inner">
+                <div class="stat-item wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="stat-number">3<span>+</span></div>
+                    <div class="stat-label">Platforms</div>
+                </div>
+                <div class="stat-item wow fadeInUp" data-wow-delay="0.35s">
+                    <div class="stat-number" style="color: #1877f2;">FB</div>
+                    <div class="stat-label">Facebook</div>
+                </div>
+                <div class="stat-item wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="stat-number" style="background: linear-gradient(135deg, #833ab4, #e1306c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">IG</div>
+                    <div class="stat-label">Instagram</div>
+                </div>
+                <div class="stat-item wow fadeInUp" data-wow-delay="0.65s">
+                    <div class="stat-number" style="color: #69c9d0;">TT</div>
+                    <div class="stat-label">TikTok</div>
+                </div>
+                <div class="stat-item wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="stat-number">Daily<span>!</span></div>
+                    <div class="stat-label">New Content</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SOCIAL CARDS SECTION ===== -->
+    <section class="social-section">
+        <div class="container">
+            <div class="title-area">
+                <div class="sub-title text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <img class="me-1" src="assets/img/icon/titleIcon.svg" alt="icon">OUR CHANNELS<img class="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon">
+                </div>
+                <h2 class="title wow fadeInUp" data-wow-delay="0.5s">Find Us Online</h2>
+            </div>
+
+            <div class="social-cards-grid">
+
+                <!-- Facebook Card -->
+                <div class="social-card facebook wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="social-card-header">
+                        <i class="fab fa-facebook-f social-platform-icon"></i>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-platform-name">Facebook</div>
+                        <div class="social-handle">Latin Eats St Helens</div>
+                        <p class="social-description">
+                            Like our page for the latest menu updates, special promotions, event announcements, and customer highlights from our St Helens kitchen.
+                        </p>
+                        <a href="https://www.facebook.com/profile.php?id=61569219511236"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="social-card-cta">
+                            Visit Page <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Instagram Card -->
+                <div class="social-card instagram wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="social-card-header">
+                        <i class="fab fa-instagram social-platform-icon"></i>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-platform-name">Instagram</div>
+                        <div class="social-handle">@latineats_sthelens</div>
+                        <p class="social-description">
+                            Follow for mouth-watering food photography, stories from our kitchen, reels of freshly made pupusas, tortas, and everything in between.
+                        </p>
+                        <a href="https://www.instagram.com/latineats_sthelens"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="social-card-cta">
+                            Follow Us <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TikTok Card -->
+                <div class="social-card tiktok wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="social-card-header">
+                        <div class="tiktok-icon-wrap">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-platform-name">TikTok</div>
+                        <div class="social-handle">@latin.eats</div>
+                        <p class="social-description">
+                            Watch our short-form videos featuring cooking demos, food prep close-ups, staff moments, and the vibrant culture behind authentic Latin cuisine.
+                        </p>
+                        <a href="https://www.tiktok.com/@latin.eats"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="social-card-cta">
+                            Watch Now <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee ticker -->
+    <div class="marquee-wrapper style-1 text-slider" style="padding: 40px 0; background:#0d0d0d;">
+        <div class="marquee-inner to-left">
+            <ul class="marqee-list d-flex">
+                <li class="marquee-item style1">
+                    <span class="text-slider"></span><span class="text-slider text-style">Facebook</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Instagram</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">TikTok</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Latin Eats</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">St Helens</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Follow Us</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Facebook</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Instagram</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">TikTok</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Latin Eats</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">St Helens</span>
+                    <span class="text-slider"></span><span class="text-slider text-style">Follow Us</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ===== FOLLOW BANNER ===== -->
+    <section class="follow-banner">
+        <div class="container">
+            <h2 class="wow fadeInUp" data-wow-delay="0.3s">Join Our Community</h2>
+            <p class="wow fadeInUp" data-wow-delay="0.5s">
+                Tag us in your photos with <strong style="color:#c82828;">#LatinEats</strong> and get featured on our page. We love seeing our food through your eyes!
+            </p>
+            <div class="follow-icons wow fadeInUp" data-wow-delay="0.7s">
+                <a href="https://www.facebook.com/profile.php?id=61569219511236"
+                   class="follow-icon-btn fb"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/latineats_sthelens"
+                   class="follow-icon-btn ig"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@latin.eats"
+                   class="follow-icon-btn tt"
+                   target="_blank" rel="noopener noreferrer"
+                   title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-section bg-title fix">
+        <div class="footer-widgets-wrapper">
+            <div class="shape1 float-bob-y d-none d-xxl-block"><img src="assets/img/shape/footerShape1_1.png" alt="shape"></div>
+            <div class="shape2 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_2.png" alt="shape"></div>
+            <div class="shape3 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_3.png" alt="shape"></div>
+            <div class="shape4 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_4.png" alt="shape"></div>
+            <div class="container">
+                <div class="footer-top">
+                    <div class="row gy-4">
+                        <div class="col-lg-4">
+                            <div class="fancy-box">
+                                <div class="item1"><i class="fa-solid fa-location-dot"></i></div>
+                                <div class="item2">
+                                    <h6>Address</h6>
+                                    <p>100 Duke Street, St Helens, WA9 3LB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 d-flex justify-content-start justify-content-lg-end">
+                            <div class="fancy-box">
+                                <div class="item1"><i class="fa-solid fa-envelope"></i></div>
+                                <div class="item2">
+                                    <h6>Send Email</h6>
+                                    <p>info@latineats.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 d-flex justify-content-start justify-content-lg-end">
+                            <div class="fancy-box">
+                                <div class="item1"><i class="fa-regular fa-phone-volume"></i></div>
+                                <div class="item2">
+                                    <h6>Call Us</h6>
+                                    <p>+44 (0)1744 000 000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
+                        <div class="single-footer-widget">
+                            <div class="widget-head">
+                                <a href="index.html">
+                                    <img src="assets/img/logo/logoWhite.svg" alt="logo-img">
+                                </a>
+                            </div>
+                            <div class="footer-content">
+                                <p>Authentic Latin American flavours, crafted with love in the heart of St Helens.</p>
+                                <div class="social-icon d-flex align-items-center">
+                                    <a href="https://www.facebook.com/profile.php?id=61569219511236" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.instagram.com/latineats_sthelens" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.tiktok.com/@latin.eats" target="_blank"><i class="fab fa-tiktok"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
+                        <div class="single-footer-widget">
+                            <div class="widget-head"><h3>Quick Links</h3></div>
+                            <ul class="list-area">
+                                <li><a href="about.html"><i class="fa-solid fa-chevrons-right"></i> About Us</a></li>
+                                <li><a href="menu.html"><i class="fa-solid fa-chevrons-right"></i> Our Menu</a></li>
+                                <li><a href="social.html"><i class="fa-solid fa-chevrons-right"></i> Social Media</a></li>
+                                <li><a href="contact.html"><i class="fa-solid fa-chevrons-right"></i> Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
+                        <div class="single-footer-widget">
+                            <div class="widget-head"><h3>Our Menu</h3></div>
+                            <ul class="list-area">
+                                <li><a href="menu.html"><i class="fa-solid fa-chevrons-right"></i> Pupusas</a></li>
+                                <li><a href="menu.html"><i class="fa-solid fa-chevrons-right"></i> Tortas</a></li>
+                                <li><a href="menu.html"><i class="fa-solid fa-chevrons-right"></i> Burritos</a></li>
+                                <li><a href="menu.html"><i class="fa-solid fa-chevrons-right"></i> Hotdogs</a></li>
+                                <li><a href="menu.html"><i class="fa-solid fa-chevrons-right"></i> Pan Mataniños</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
+                        <div class="single-footer-widget">
+                            <div class="widget-head"><h3>Opening Hours</h3></div>
+                            <ul class="list-area">
+                                <li class="mb-2">Monday – Friday: <span class="text-theme-color2"> 9am – 5pm</span></li>
+                                <li>Saturday: <span class="text-theme-color2"> 9am – 3pm</span></li>
+                            </ul>
+                            <form action="#" class="mt-4">
+                                <div class="form-control">
+                                    <input class="email" type="email" placeholder="Your email address">
+                                    <button type="submit" class="submit-btn"><i class="fa-solid fa-arrow-right-long"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-wrapper d-flex align-items-center justify-content-between">
+                    <p class="wow fadeInLeft" data-wow-delay=".3s">
+                        © All Copyright 2024 by <a href="index.html">Latin Eats</a>
+                    </p>
+                    <ul class="brand-logo wow fadeInRight" data-wow-delay=".5s">
+                        <li><a class="text-white" href="contact.html">Terms &amp; Conditions</a></li>
+                        <li><a class="text-white" href="contact.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Plugins -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.waypoints.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/viewport.jquery.js"></script>
+    <script src="assets/js/magnific-popup.min.js"></script>
+    <script src="assets/js/tilt.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/nice-select.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
